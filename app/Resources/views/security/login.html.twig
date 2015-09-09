@@ -1,19 +1,48 @@
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+{% extends "base.html.twig"%}
 
-<form action="{{ path('login_check') }}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+{% block body %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" />
+<div class="login-container">
 
-    {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        <input type="hidden" name="_target_path" value="/account" />
-    #}
+    <div class="login-box animated fadeInDown">
+        <div class="login-logo"></div>
+        <div class="login-body">
+            <div class="login-title"><strong>Welcome</strong>, Please login</div>
+            <form action="{{ path('login_check') }}" method="post"  class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="text" id="username" name="_username" value="{{ last_username }}"  class="form-control" placeholder="Username"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="password" id="password" name="_password"  class="form-control" placeholder="Password"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <a href="#" class="btn btn-link btn-block">Forgot your password?</a>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-info btn-block" type="submit">Log In</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="login-footer">
+            <div class="pull-left">
+                &copy; 2015 AppName
+            </div>
+            <div class="pull-right">
+                <a href="#">About</a> |
+                <a href="#">Privacy</a> |
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </div>
 
-    <button type="submit">login</button>
-</form>
+</div>
+{% endblock %}
