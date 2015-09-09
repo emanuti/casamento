@@ -12,13 +12,13 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request)
     {
-        $user = new \AppBundle\Entity\User();
-        $plainPassword = '123456';
-        $encoder = $this->container->get('security.password_encoder');
-        $encoded = $encoder->encodePassword($user, $plainPassword);
-print_r($encoded);
-\Doctrine\Common\Util\Debug::dump($this->getDoctrine()->getEntityManager()->find('AppBundle:User', 1));
-                
+//        $user = new \AppBundle\Entity\User();
+//        $plainPassword = '123456';
+//        $encoder = $this->container->get('security.password_encoder');
+//        $encoded = $encoder->encodePassword($user, $plainPassword);
+//print_r($encoded);
+//\Doctrine\Common\Util\Debug::dump($this->getDoctrine()->getEntityManager()->find('AppBundle:User', 1));
+//                
         $authenticationUtils = $this->get('security.authentication_utils');
 
         // get the login error if there is one
@@ -44,5 +44,13 @@ print_r($encoded);
     {
         // this controller will not be executed,
         // as the route is handled by the Security system
+    }
+    
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction() 
+    {
+        
     }
 }
