@@ -3,10 +3,13 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @UniqueEntity(fields="email", message="E-mail já cadastrado.")
  */
 class User implements UserInterface, \Serializable
 {
@@ -24,11 +27,15 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank()
+     * @Assert\Length(max = 4096)
      */
     private $password;
-
+    
     /**
      * @ORM\Column(type="string", length=60, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -125,6 +132,9 @@ class User implements UserInterface, \Serializable
      */
     public function setPassword($password)
     {
+        $encoder = $this->container->get('security.password_encoder');
+        $encoded = $encoder->encodePassword($this, $password);
+
         $this->password = $password;
 
         return $this;
