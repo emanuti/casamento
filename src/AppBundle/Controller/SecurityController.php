@@ -39,4 +39,29 @@ class SecurityController extends Controller
      * @Route("/logout", name="logout")
      */
     public function logoutAction(){}
+    
+    /**
+     * @Route("/forgot_password", name="forgot_password")
+     */
+    public function forgotPasswordAction() 
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(new RegistrationType(), new Registration());
+        $form->handleRequest($request);
+        
+        if ($form->isValid()) {
+            $registration = $form->getData();
+
+            $em->persist($registration->getUser());
+            $em->flush();
+
+            return $this->redirectToRoute('login_route');
+        }
+
+        return $this->render(
+            'security/forgot_password.html.twig',
+            array('form' => $form->createView())
+        );
+    }
 }
