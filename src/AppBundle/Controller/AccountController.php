@@ -37,6 +37,8 @@ class AccountController extends Controller
         
         if ($form->isValid()) {
             $registration = $form->getData();
+            $registration->getUser()
+                ->setEncodedPassword($this->container->get('security.password_encoder'), $registration->getUser()->getPassword());
 
             $em->persist($registration->getUser());
             $em->flush();
