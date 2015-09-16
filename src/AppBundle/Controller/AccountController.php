@@ -39,6 +39,8 @@ class AccountController extends Controller
             $accountService = $this->get('account');
             $accountService->create($request->request);
             $registration = $form->getData();
+            $registration->getUser()
+                ->setPassword($this->container->get('security.password_encoder'), $registration->getUser()->getPassword());
 
             $em->persist($registration->getUser());
             $em->flush();

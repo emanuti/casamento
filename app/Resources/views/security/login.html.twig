@@ -18,6 +18,9 @@
                         <input type="password" id="password" name="_password"  class="form-control" placeholder="Password"/>
                     </div>
                 </div>
+                {% if error %}
+                    <div class="bs-callout bs-callout-danger"><h4>{{ error.messageKey|trans(error.messageData, 'security') }}</h4></div>
+                {% endif %}
                 <div class="form-group">
                     <div class="col-md-12 text-warning">
                         {% if error %}
