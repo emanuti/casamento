@@ -127,14 +127,12 @@ class User implements UserInterface, \Serializable
     /**
      * Set password
      *
-     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoder $encoder 
      * @param string $password
      * @return User
      */
-    public function setPassword(\Symfony\Component\Security\Core\Encoder\UserPasswordEncoder $encoder, $password)
+    public function setPassword($password)
     {
-        $encoded = $encoder->encodePassword($this, $password);
-        $this->password = $encoded;
+        $this->password = $password;
 
         return $this;
     }
