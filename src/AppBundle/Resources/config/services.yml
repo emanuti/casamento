@@ -1,0 +1,5 @@
+services:
+    account:
+        class: AppBundle\Services\AccountService
+        calls:
+            - [ setEncoder, ["@security.password_encoder"] ]

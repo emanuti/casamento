@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Type\ForgotPasswordType;
 
 class SecurityController extends Controller
 {
@@ -43,20 +44,22 @@ class SecurityController extends Controller
     /**
      * @Route("/forgot_password", name="forgot_password")
      */
-    public function forgotPasswordAction() 
+    public function forgotPasswordAction(Request $request) 
     {
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(new RegistrationType(), new Registration());
+        $form = $this->createForm(new ForgotPasswordType());
         $form->handleRequest($request);
         
         if ($form->isValid()) {
             $registration = $form->getData();
+            \Doctrine\Common\Util\Debug::dump($registration);
+            die;
+//            $em->persist($registration->getUser());
+//            $em->flush();
+//            $user = $em->getRepository('AppBundle:User')->findBy(array('email' => $registration));
 
-            $em->persist($registration->getUser());
-            $em->flush();
-
-            return $this->redirectToRoute('login_route');
+            return $this->redirectToRoute('security/forgot_password.html.twig');
         }
 
         return $this->render(
