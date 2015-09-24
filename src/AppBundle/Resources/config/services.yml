@@ -1,5 +1,6 @@
 services:
     account:
-        class: AppBundle\Services\AccountService
+        class: AppBundle\Service\AccountService
+        arguments: ["@doctrine.orm.entity_manager"]
         calls:
             - [ setEncoder, ["@security.password_encoder"] ]

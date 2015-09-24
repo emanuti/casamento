@@ -36,6 +36,7 @@ class AccountController extends Controller
         $form->handleRequest($request);
         
         if ($form->isValid()) {
+
             $accountService = $this->get('account');
             $accountService->create($request->request);
             $registration = $form->getData();
