@@ -36,15 +36,8 @@ class AccountController extends Controller
         $form->handleRequest($request);
         
         if ($form->isValid()) {
-
-            $accountService = $this->get('account');
-            $accountService->create($request->request);
-            $registration = $form->getData();
-            $registration->getUser()
-                ->setPassword($this->container->get('security.password_encoder'), $registration->getUser()->getPassword());
-
-            $em->persist($registration->getUser());
-            $em->flush();
+            $service = $this->get('account');
+            $service->create($form->getData()->getUser());
 
             return $this->redirectToRoute('login_route');
         }
