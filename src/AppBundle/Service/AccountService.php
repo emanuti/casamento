@@ -1,7 +1,7 @@
 <?php
 namespace AppBundle\Service;
 
-use AppBundle\Entity\User;
+use AppBundle\Entity\Usuario;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
 class AccountService extends AbstractService
@@ -13,16 +13,16 @@ class AccountService extends AbstractService
         $this->encoder = $encoder;
     }
     
-    public function create(User $user)
+    public function create(Usuario $usuario)
     {
-        $user->setPassword($this->getEncodedPassword($user->getPassword()));
-        $this->em->persist($user);
+        $usuario->setPassword($this->getEncodedPassword($usuario->getPassword()));
+        $this->em->persist($usuario);
         $this->em->flush();
     }
     
     public function getEncodedPassword($password)
     {
-        return $this->encoder->encodePassword(new User(), $password);
+        return $this->encoder->encodePassword(new Usuario(), $password);
     }
     
 }

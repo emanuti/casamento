@@ -2,15 +2,15 @@
 namespace AppBundle\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Usuario;
 
 class Registration
 {
     /**
-     * @Assert\Type(type="AppBundle\Entity\User")
+     * @Assert\Type(type="AppBundle\Entity\Usuario")
      * @Assert\Valid()
      */
-    protected $user;
+    protected $usuario;
 
     /**
      * @Assert\NotBlank()
@@ -18,14 +18,14 @@ class Registration
      */
     protected $termsAccepted;
 
-    public function setUser(User $user)
+    public function setUser(Usuario $user)
     {
-        $this->user = $user;
+        $this->usuario = $user;
     }
 
     public function getUser()
     {
-        return $this->user;
+        return $this->usuario;
     }
 
     public function getTermsAccepted()

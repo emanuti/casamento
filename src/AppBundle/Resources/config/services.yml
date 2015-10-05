@@ -4,3 +4,6 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         calls:
             - [ setEncoder, ["@security.password_encoder"] ]
+    form:
+        class: AppBundle\Service\FormService
+        arguments: ["@doctrine.orm.entity_manager"]
